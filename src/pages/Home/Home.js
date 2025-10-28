@@ -4,12 +4,11 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import Filter from '../../components/Filter/Filter';
 import BrandDropdown from '../../components/Sort/BrandDropdown';
 import Pagination from '../../components/Pagination/Pagination';
-import CarCard from '../../components/CarsCard/CarsCard';
-import { useNavigate, useLocation } from 'react-router-dom';
+import CarCard from '../../components/CarsCard/CarCard';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const navigate = useNavigate();
-  const location = useLocation(); // 👈 track path changes
   const [cars, setCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
@@ -18,15 +17,11 @@ export default function Home() {
   const itemsPerPage = 4;
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
+  // Fetch แบบ lightweight (เฉพาะ id, brand, model, image)
   useEffect(() => {
-    if (!BACKEND_URL) {
-      console.error("BACKEND_URL is undefined! ตรวจสอบ .env");
-      return;
-    }
-  
-    console.log("Fetching cars from:", `${BACKEND_URL}/cars/`);
-  
-    fetch(`${BACKEND_URL}/cars/`)
+    if (!BACKEND_URL) return;
+
+    fetch(`${BACKEND_URL}/cars/?fields=id,brand,model,image_url,year`)
       .then(res => {
         if (!res.ok) throw new Error(`Network response was not ok: ${res.status}`);
         return res.json();
@@ -36,21 +31,23 @@ export default function Home() {
         console.error("Fetch error:", err);
         setCars([]); // fallback
       });
-  }, [BACKEND_URL]); // ตอนนี้จะ fetch ใหม่ทุกครั้งที่ BACKEND_URL เปลี่ยน หรือ component remount
+  }, [BACKEND_URL]);
 
   const yearOptions = [...new Set(cars.map(car => car.year))];
   const brandOptions = [...new Set(cars.map(car => car.brand))];
 
-  const filteredCars = cars
-    .filter(car => 
-      (car.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       car.model.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (selectedYear ? car.year === parseInt(selectedYear) : true) &&
-      (selectedBrand ? car.brand === selectedBrand : true)
-    );
+  const filteredCars = cars.filter(car =>
+    (car.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
+     car.model.toLowerCase().includes(searchTerm.toLowerCase())) &&
+    (selectedYear ? car.year === parseInt(selectedYear) : true) &&
+    (selectedBrand ? car.brand === selectedBrand : true)
+  );
 
   const totalPages = Math.ceil(filteredCars.length / itemsPerPage);
-  const displayedCars = filteredCars.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage);
+  const displayedCars = filteredCars.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div style={{ padding: '20px' }}>
@@ -71,7 +68,11 @@ export default function Home() {
           <CarCard key={car.id} car={car} onClick={() => navigate(`/cars/${car.id}`)} />
         ))}
       </div>
-      <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Pagination 
+        totalPages={totalPages} 
+        currentPage={currentPage} 
+        setCurrentPage={setCurrentPage} 
+      />
     </div>
   );
 }
