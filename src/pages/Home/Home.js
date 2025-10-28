@@ -19,7 +19,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    fetch(`${BACKEND_URL}/cars`)
+    fetch(`${BACKEND_URL}/cars/`)
       .then(res => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
