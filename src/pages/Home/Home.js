@@ -4,7 +4,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import Filter from '../../components/Filter/Filter';
 import BrandDropdown from '../../components/Sort/BrandDropdown';
 import Pagination from '../../components/Pagination/Pagination';
-import CarCard from '../../components/CarsCard/CarCard';
+import CarCard from '../../components/CarsCard/CarsCard';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
