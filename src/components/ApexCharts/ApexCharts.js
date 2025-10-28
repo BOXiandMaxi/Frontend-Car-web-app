@@ -2,18 +2,15 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 export default function PriceBarChart({ priceData }) {
-  if (!priceData || priceData.length === 0) return null;
+  if (!priceData) return null;
 
-  const car = priceData?.[0] || {};
-  const priceNew = Number(car.price_new) || 0;
-  const price2024 = Number(car.price_in_2024) || 0;
-  const priceTwoHand = Number(car.price_twohand) || 0;
-  const labels = ["2023", "2024", "2025"];
+  const priceNew = Number(priceData.price_new) || 0;
+  const price2024 = Number(priceData.price_in_2024) || 0;
+  const priceTwoHand = Number(priceData.price_twohand) || 0;
+  const labels = ["2023", "2024", "มือสอง"];
 
-  // ✅ ฟังก์ชันสร้างสีแบบสุ่ม
-  const getRandomColor = () => {
-    return "#" + Math.floor(Math.random() * 16777215).toString(16);
-  };
+  // ฟังก์ชันสุ่มสี
+  const getRandomColor = () => "#" + Math.floor(Math.random() * 16777215).toString(16);
 
   return (
     <div className="car-price-chart">
@@ -33,15 +30,11 @@ export default function PriceBarChart({ priceData }) {
           yaxis: { labels: { formatter: val => val.toLocaleString() } },
           plotOptions: {
             bar: {
-              distributed: true, // ✅ ทำให้แท่งแยกสี
+              distributed: true, // แยกสีแท่งแต่ละแท่ง
               columnWidth: "60%",
             },
           },
-          colors: [
-            getRandomColor(),
-            getRandomColor(),
-            getRandomColor()
-          ], // ✅ <== ตรงนี้ต้องมีเครื่องหมายคอมมา
+          colors: [getRandomColor(), getRandomColor(), getRandomColor()],
           legend: { position: "top" },
           dataLabels: { enabled: true },
           tooltip: { y: { formatter: val => `฿${val.toLocaleString()}` } },
@@ -50,4 +43,3 @@ export default function PriceBarChart({ priceData }) {
     </div>
   );
 }
-

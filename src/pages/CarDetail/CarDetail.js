@@ -9,7 +9,7 @@ export default function CarDetail() {
   const navigate = useNavigate();
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL; 
   const [car, setCar] = useState(null);
-  const [priceData, setPriceData] = useState([]);
+  const [priceData, setPriceData] = useState({});
   const [loading, setLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
@@ -25,7 +25,7 @@ export default function CarDetail() {
         setCar(carData);
         return fetch(`${BACKEND_URL}/cars/${carData.id}/price-data`)
           .then(res => res.json())
-          .then(json => setPriceData(json.prices || []));
+          .then(json => setPriceData(json.prices || {})); 
       })
       .catch(err => console.error("Error fetching data:", err))
       .finally(() => {
