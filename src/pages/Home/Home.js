@@ -5,10 +5,11 @@ import Filter from '../../components/Filter/Filter';
 import BrandDropdown from '../../components/Sort/BrandDropdown';
 import Pagination from '../../components/Pagination/Pagination';
 import CarCard from '../../components/CarsCard/CarsCard';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Home() {
   const navigate = useNavigate();
+  const location = useLocation(); // 👈 track path changes
   const [cars, setCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
@@ -34,10 +35,9 @@ export default function Home() {
       .then(data => setCars(data))
       .catch(err => {
         console.error("Fetch error:", err);
-        // fallback เฉพาะกรณี fetch fail
         setCars([]);
       });
-  }, [BACKEND_URL]);
+  }, [BACKEND_URL, location.pathname]); // 👈 เพิ่ม location.pathname เพื่อ fetch ใหม่ทุกครั้ง path เปลี่ยน
 
   const yearOptions = [...new Set(cars.map(car => car.year))];
   const brandOptions = [...new Set(cars.map(car => car.brand))];
