@@ -99,7 +99,7 @@ export default function CarDetail() {
             </div>
           )}
           <PriceBarChart priceData={priceData} />
-          <ReviewPieChart carId={car.id} />
+          <ReviewPieChart carId={car.id.toString()} />
         </div>
 
         {/* ข้อมูลรถ */}
