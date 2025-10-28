@@ -17,16 +17,27 @@ export default function Home() {
   const itemsPerPage = 4;
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-
   useEffect(() => {
-    fetch(`${BACKEND_URL}/cars/`)
+    if (!BACKEND_URL) {
+      console.error("BACKEND_URL is undefined! ตรวจสอบ .env");
+      return;
+    }
+
+    const url = `${BACKEND_URL}/cars/`;
+    console.log("Fetching cars from:", url);
+
+    fetch(url)
       .then(res => {
-        if (!res.ok) throw new Error("Network response was not ok");
+        if (!res.ok) throw new Error(`Network response was not ok: ${res.status}`);
         return res.json();
       })
       .then(data => setCars(data))
-      .catch(err => console.error("Fetch error:", err));
-  }, []);
+      .catch(err => {
+        console.error("Fetch error:", err);
+        // fallback เฉพาะกรณี fetch fail
+        setCars([]);
+      });
+  }, [BACKEND_URL]);
 
   const yearOptions = [...new Set(cars.map(car => car.year))];
   const brandOptions = [...new Set(cars.map(car => car.brand))];
