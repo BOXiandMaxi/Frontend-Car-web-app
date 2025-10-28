@@ -34,12 +34,12 @@ export default function ReviewPieChart({ carId }) {
     },
     dataLabels: {
       enabled: true,
-      formatter: (val) => `${val}`, // ใช้ val ที่ ApexCharts ส่งมา
+      formatter: (val) => `${val}`, // ใช้ val จาก ApexCharts โดยตรง
       style: { fontSize: "16px", fontWeight: "bold" }
     },
     tooltip: {
       y: {
-        formatter: (val) => `${val} คะแนน`
+        formatter: (val) => `${val} คะแนน` // ใช้ val จาก series
       }
     },
     legend: { position: "bottom" }
