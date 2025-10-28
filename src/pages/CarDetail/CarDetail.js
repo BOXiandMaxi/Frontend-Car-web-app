@@ -7,7 +7,7 @@ import './CarDetail.css';
 export default function CarDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL; 
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const [car, setCar] = useState(null);
   const [priceData, setPriceData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,29 +15,16 @@ export default function CarDetail() {
 
   const MIN_LOADING_TIME = 7000; // เวลาโหลดขั้นต่ำ (ms)
   
-  useEffect(() => {
-    const startTime = Date.now();
-    setLoading(true);
-    
-    fetch(`${BACKEND_URL}/cars/${id}`)
-      .then(res => res.json())
-      .then(carData => {
-        setCar(carData);
-        return fetch(`${BACKEND_URL}/cars/${carData.id}/price-data`)
-          .then(res => res.json())
-          .then(json => setPriceData(json.prices || []));
-      })
-      .catch(err => console.error("Error fetching data:", err))
-      .finally(() => {
-        const elapsed = Date.now() - startTime;
-        const remaining = MIN_LOADING_TIME - elapsed;
-        if (remaining > 0) {
-          setTimeout(() => setLoading(false), remaining);
-        } else {
-          setLoading(false);
-        }
-      });
-  }, [id]);
+useEffect(() => {
+  fetch(`${BACKEND_URL}/cars/${id}`)
+    .then(res => res.text()) // <-- แก้จาก .json() เป็น .text() ก่อน
+    .then(text => {
+      console.log("RAW RESPONSE:", text); // ดูว่ามาเป็น JSON หรือ HTML
+      const data = JSON.parse(text); // ถ้าแน่ใจว่าเป็น JSON
+      setCar(data);
+    })
+    .catch(err => console.error("Error fetching data:", err));
+}, [id]);
 
   const handleImageError = () => setImageError(true);
   const handleAddToWishlist = () => alert('เพิ่มในรายการโปรดแล้ว! ❤️');

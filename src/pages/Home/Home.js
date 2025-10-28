@@ -15,9 +15,11 @@ export default function Home() {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8001/cars")
+    fetch(`${BACKEND_URL}/cars`)
       .then(res => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
