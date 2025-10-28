@@ -23,11 +23,10 @@ export default function Home() {
       console.error("BACKEND_URL is undefined! ตรวจสอบ .env");
       return;
     }
-
-    const url = `${BACKEND_URL}/cars/`;
-    console.log("Fetching cars from:", url);
-
-    fetch(url)
+  
+    console.log("Fetching cars from:", `${BACKEND_URL}/cars/`);
+  
+    fetch(`${BACKEND_URL}/cars/`)
       .then(res => {
         if (!res.ok) throw new Error(`Network response was not ok: ${res.status}`);
         return res.json();
@@ -35,9 +34,9 @@ export default function Home() {
       .then(data => setCars(data))
       .catch(err => {
         console.error("Fetch error:", err);
-        setCars([]);
+        setCars([]); // fallback
       });
-  }, [BACKEND_URL, location.pathname]); // 👈 เพิ่ม location.pathname เพื่อ fetch ใหม่ทุกครั้ง path เปลี่ยน
+  }, [BACKEND_URL]); // ตอนนี้จะ fetch ใหม่ทุกครั้งที่ BACKEND_URL เปลี่ยน หรือ component remount
 
   const yearOptions = [...new Set(cars.map(car => car.year))];
   const brandOptions = [...new Set(cars.map(car => car.brand))];
