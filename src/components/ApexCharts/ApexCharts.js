@@ -2,11 +2,13 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 export default function PriceBarChart({ priceData }) {
+  // ถ้าไม่มีข้อมูล return null
   if (!priceData) return null;
 
   const priceNew = Number(priceData.price_new) || 0;
   const price2024 = Number(priceData.price_in_2024) || 0;
   const priceTwoHand = Number(priceData.price_twohand) || 0;
+
   const labels = ["2023", "2024", "มือสอง"];
 
   // ฟังก์ชันสุ่มสี
@@ -27,17 +29,17 @@ export default function PriceBarChart({ priceData }) {
         options={{
           chart: { id: "car-price-chart" },
           xaxis: { categories: labels },
-          yaxis: { labels: { formatter: val => val.toLocaleString() } },
+          yaxis: { labels: { formatter: (val) => val.toLocaleString() } },
           plotOptions: {
             bar: {
-              distributed: true, // แยกสีแท่งแต่ละแท่ง
+              distributed: true,
               columnWidth: "60%",
             },
           },
           colors: [getRandomColor(), getRandomColor(), getRandomColor()],
           legend: { position: "top" },
           dataLabels: { enabled: true },
-          tooltip: { y: { formatter: val => `฿${val.toLocaleString()}` } },
+          tooltip: { y: { formatter: (val) => `฿${val.toLocaleString()}` } },
         }}
       />
     </div>
