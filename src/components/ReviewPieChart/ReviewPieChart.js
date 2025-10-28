@@ -12,6 +12,7 @@ export default function ReviewPieChart({ carId }) {
     fetch(`${BACKEND_URL}/reviews/${carId}`)
       .then(res => res.json())
       .then(data => {
+        console.log("Review data:", data);  // 👈 เพิ่ม log
         setScores([
           data.exterior || 0,
           data.interior || 0,

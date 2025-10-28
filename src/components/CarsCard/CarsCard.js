@@ -9,6 +9,7 @@ export default function CarCard({ car, onClick }) {
         src={car.image_url}
         alt={`${car.brand} ${car.model}`}
         style={{ width: '100%', height: 150, objectFit: 'cover', marginBottom: 10 }}
+        loading="lazy"  // 👈 lazy load
       />
       <h3>{car.brand} {car.model}</h3>
       <p>
