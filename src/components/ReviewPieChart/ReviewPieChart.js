@@ -1,4 +1,3 @@
-// src/components/ReviewPieChart/ReviewPieChart.js
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
@@ -6,23 +5,24 @@ export default function ReviewPieChart({ carId }) {
   const labels = ["ภายนอก", "ภายใน", "ความคุ้มค่า", "ความประหยัดน้ำมัน", "สมรรถนะ"];
   const [scores, setScores] = useState([0, 0, 0, 0, 0]);
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
     if (!carId) return;
 
     fetch(`${BACKEND_URL}/reviews/${carId}`)
       .then(res => res.json())
       .then(data => {
-        console.log("Review data:", data);  // 👈 เพิ่ม log
+        console.log("Review data:", data);
         setScores([
-          data.exterior || 0,
-          data.interior || 0,
-          data.value || 0,
-          data.fuel_economy || 0,
-          data.performance || 0
+          Number(data.exterior) || 0,
+          Number(data.interior) || 0,
+          Number(data.value) || 0,
+          Number(data.fuel_economy) || 0,
+          Number(data.performance) || 0
         ]);
       })
       .catch(err => console.error("Error fetching review data:", err));
-  }, [carId]); // ไม่มี warning แล้ว
+  }, [carId]);
 
   const options = {
     chart: { type: "pie" },
@@ -34,19 +34,15 @@ export default function ReviewPieChart({ carId }) {
     },
     dataLabels: {
       enabled: true,
-      formatter: (val, opts) => {
-        return scores[opts.seriesIndex]; // แสดงแค่ตัวเลข
-      },
-      style: { fontSize: "20px", fontWeight: "bold" }
+      formatter: (val) => `${val}`, // ใช้ val ที่ ApexCharts ส่งมา
+      style: { fontSize: "16px", fontWeight: "bold" }
     },
     tooltip: {
       y: {
-        formatter: (value, opts) => `${scores[opts.seriesIndex]} คะแนน`
+        formatter: (val) => `${val} คะแนน`
       }
     },
-    legend: {
-      position: "bottom"
-    }
+    legend: { position: "bottom" }
   };
 
   return (
