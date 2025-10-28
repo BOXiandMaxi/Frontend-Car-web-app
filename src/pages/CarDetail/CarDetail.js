@@ -7,7 +7,7 @@ import './CarDetail.css';
 export default function CarDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL; 
   const [car, setCar] = useState(null);
   const [priceData, setPriceData] = useState([]);
   const [loading, setLoading] = useState(true);
