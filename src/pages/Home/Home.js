@@ -5,7 +5,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import Filter from '../../components/Filter/Filter';
 import BrandDropdown from '../../components/Sort/BrandDropdown';
 import Pagination from '../../components/Pagination/Pagination';
-import CarCard from '../../components/CarCard/CarCard'; // ✅ แก้ชื่อ path
+import CarCard from '../../components/CarsCard/CarsCard'; // ✅ แก้ชื่อ path
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
