@@ -1,0 +1,63 @@
+/* Car Card Styles - ปรับปรุงให้ดูทันสมัยและมีเงา */
+.car-card {
+  border: none;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 15px;
+  width: 280px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.car-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.car-card:hover::before {
+  transform: scaleX(1);
+}
+
+.car-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.car-card:hover img {
+  transform: scale(1.05);
+}
+
+.car-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.car-card .price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-top: 12px;
+}

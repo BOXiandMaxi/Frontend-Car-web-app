@@ -1,0 +1,22 @@
+/* Filter Styles - ปรับให้ดูเป็นมืออาชีพ */
+.filter {
+  padding: 12px 16px;
+  margin-right: 12px;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.filter:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter:hover {
+  border-color: #cbd5e0;
+}
+
+
