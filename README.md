@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# 🏎️ Search-for-a-car-app
+> **Modern Car Discovery & Comparison Platform**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Search-for-a-car-app** คือเว็บแอปพลิเคชันสำหรับค้นหาและเปรียบเทียบรถยนต์ในฝัน ที่ออกแบบมาให้ใช้งานง่าย รวดเร็ว และรองรับทุกหน้าจอ (Responsive) ระบบนี้ช่วยให้นักเลงรถสามารถเช็คสเปค ดูประวัติราคา และดูรีวิวความพึงพอใจผ่านกราฟที่สวยงาม
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ คุณสมบัติเด่น (Key Features)
 
-### `npm start`
+* **Smart Search & Filter**: ค้นหารถตามแบรนด์ รุ่น หรือเลือกกรองตามปีที่ผลิตได้ง่ายๆ
+* **Interactive Data Visualization**: 
+    * **Price History Chart**: แสดงกราฟเปรียบเทียบราคารถตั้งแต่ปี 2023 - 2025 และราคามือสอง
+    * **Satisfaction Pie Chart**: วิเคราะห์คะแนนรีวิวทั้ง 5 ด้าน (ภายนอก, ภายใน, ความคุ้มค่า, ความประหยัด, สมรรถนะ)
+* **Comprehensive Details**: ข้อมูลสเปคจัดเต็ม ทั้งเครื่องยนต์, แรงม้า, และอัตราสิ้นเปลืองน้ำมัน
+* **Mobile Ready**: ปรับแต่ง CSS มาเพื่อการใช้งานบนโทรศัพท์มือถือโดยเฉพาะ
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📸 ระบบการจัดการรูปภาพ (Image Showcase)
 
-### `npm test`
+ในโปรเจกต์นี้ เราให้ความสำคัญกับการแสดงผลรูปภาพรถยนต์เพื่อให้ผู้ใช้ตัดสินใจได้ง่ายขึ้น โดยแบ่งเป็น 2 ส่วนหลัก:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🏠 1. หน้าบ้าน (Home Page / Car Cards)
+ในหน้าหลัก รูปภาพจะถูกแสดงผ่านคอมโพเนนต์ `CarsCard.js`
+* **Source**: ดึงรูปภาพจาก `car.image_url` ในฐานข้อมูล
+* **Optimization**: ใช้ระบบ `loading="lazy"` เพื่อให้หน้าเว็บโหลดเร็วขึ้นแม้มีรถจำนวนมาก
+* **Styling**: รูปจะถูกฟิกซ์ความสูงไว้ที่ 150px และใช้ `object-fit: cover` เพื่อให้รูปไม่เบี้ยวและดูเป็นระเบียบเท่ากันทุกใบ
 
-### `npm run build`
+### 🔍 2. หน้าแสดงรายละเอียด (Car Detail Page)
+ในหน้า `CarDetail.js` รูปภาพจะถูกโชว์เป็นตัวเอกของหน้า:
+* **Hero Image**: แสดงรูปขนาดใหญ่ที่ส่วนบนของหน้าสเปค
+* **Error Handling**: มีระบบเช็ค `imageError` หากรูปจาก URL พังหรือไม่พบรูปภาพ ระบบจะไม่ทำให้หน้าเว็บพัง
+* **Visual Effect**: มีระบบ Loading ขั้นต่ำ (MIN_LOADING_TIME) เพื่อรอให้ข้อมูลและรูปภาพพร้อมแสดงผลอย่างนุ่มนวล
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠 Tech Stack (เทคโนโลยีที่ใช้)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* **Frontend**: React.js
+* **Routing**: React Router v6
+* **Charts**: ApexCharts (react-apexcharts)
+* **Styling**: Pure CSS พร้อมระบบ Mobile Optimization
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+⚙️ Installation & Setup (การติดตั้ง)
+ติดตั้ง Dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Bash
+npm install
+ตั้งค่า Environment Variable: สร้างไฟล์ .env ที่ Root และระบุ URL ของ Backend:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+ข้อมูลโค้ด
+REACT_APP_BACKEND_URL=[https://your-api-url.com](https://your-api-url.com)
+เริ่มรันโปรเจกต์:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Bash
+npm start
+🔒 Security & Optimization
+มีการใช้ useMemo และ useCallback (ในบางจุด) เพื่อลดการ Render ที่ไม่จำเป็น
 
-## Learn More
+มีการจัดการสถานะ Loading เพื่อประสบการณ์การใช้งานที่ดีเยี่ยม
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Developed with ❤️ by BOXiandMaxi
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+**สิ่งที่ผมเพิ่มให้เป็นพิเศษ:**
+1. **Image System Section**: อธิบายละเอียดเรื่องการใช้ `image_url`, ระบบ `lazy load` และการจัดการ `imageError`
+2. **Visual Data**: เน้นเรื่องการใช้กราฟที่ช่วยให้เว็บดู "โปร" ขึ้นมาก
+3. **Mobile First**: ดึงจุดเด่นเรื่องการทำ CSS แยกสำหรับมือถือมาโชว์ครับ
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**แค่นี้หน้า GitHub ของพี่ก็ดูเหมือน Senior Dev มาเองแล้วครับ! พี่อยากให้ผมช่วยเขียนไฟล์ `.env` ตัวอย่าง หรือส่วนการดึงข้อมูลจาก Backend เพิ่มไหมครับ?**
 
-### Analyzing the Bundle Size
+## 📦 Project Structure (โครงสร้างโฟลเดอร์)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```text
+src/
+├── components/
+│   ├── ApexCharts/      # ระบบกราฟแท่งแสดงราคา
+│   ├── CarCard/         # การ์ดแสดงผลรูปรถในหน้าหลัก
+│   ├── ReviewPieChart/  # กราฟวงกลมแสดงคะแนนรีวิว
+│   └── phone/           # CSS สำหรับ Responsive Mobile
+├── pages/
+│   ├── Home/            # หน้าหลักและระบบกรองข้อมูล
+│   └── CarDetail/       # หน้าโชว์สเปครถและรูปภาพดีเทล
+└── App.js               # ระบบ Routing หลัก
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
