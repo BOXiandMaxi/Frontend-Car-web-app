@@ -67,7 +67,7 @@ npm install
 ตั้งค่า Environment Variable: สร้างไฟล์ .env ที่ Root และระบุ URL ของ Backend:
 
 ข้อมูลโค้ด
-REACT_APP_BACKEND_URL=[https://your-api-url.com](https://your-api-url.com)
+REACT_APP_BACKEND_URL=[https://your-api-url.com](https://search-car-project.vercel.app/)
 เริ่มรันโปรเจกต์:
 
 Bash
